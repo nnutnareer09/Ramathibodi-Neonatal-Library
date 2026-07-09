@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ramathibodi Neonatal Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --navy:#16306b; --teal:#0f9c9b; --teal-deep:#0b8180;
+  --ink:#2b3450; --muted:#697596; --line:#e7eaf3;
+  --bg:#f6f7fc; --panel:#ffffff;
+  --c-guide:#14a89f; --c-pub:#7c6bd6; --c-topic:#f2a63b; --c-proc:#3f7bd6;
+  --shadow:0 10px 30px rgba(30,45,90,.07); --shadow-sm:0 4px 14px rgba(30,45,90,.06);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.wm{font-family:'Poppins',sans-serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+button{font-family:inherit;cursor:pointer}
+
+/* ---------- Header ---------- */
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:20px;height:78px}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer}
+.brand .wm{font-weight:700;font-size:1.42rem;letter-spacing:-.01em}
+.brand .wm .a{color:var(--navy)} .brand .wm .b{color:var(--teal)}
+.brand .brandlogo{width:44px;height:44px;border-radius:11px;flex:0 0 auto;display:block;object-fit:contain}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:auto}
+.nav-links button{border:none;background:none;color:var(--muted);font-size:.94rem;
+  font-weight:500;padding:9px 14px;border-radius:10px;display:flex;align-items:center;gap:7px}
+.nav-links button:hover{color:var(--navy);background:#eef1fb}
+.nav-links button.active{color:var(--teal-deep);background:#e6f6f5}
+.nav-links button svg{width:17px;height:17px}
+.search-box{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--line);
+  border-radius:22px;padding:7px 8px 7px 15px;min-width:220px}
+.search-box:focus-within{border-color:var(--teal)}
+.search-box input{border:none;outline:none;font-family:inherit;font-size:.9rem;flex:1;background:none;color:var(--ink)}
+.search-box .go{width:30px;height:30px;border-radius:50%;border:none;background:var(--teal);
+  color:#fff;display:grid;place-items:center;flex:0 0 auto}
+.search-box .go svg{width:15px;height:15px}
+.menu-toggle{display:none;margin-left:auto;border:1.5px solid var(--line);background:#fff;
+  border-radius:10px;width:42px;height:42px;color:var(--navy)}
+
+/* ---------- Views ---------- */
+.view{display:none;animation:fade .4s ease}
+.view.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.view,*{animation:none!important}}
+.page-pad{padding:44px 0 70px}
+
+/* ---------- Hero ---------- */
+.hero{margin-top:26px;background:
+  radial-gradient(120% 130% at 88% 8%,#e9f4fb 0%,#eef0fb 42%,#f3eefc 100%);
+  border:1px solid #eaeafb;border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+.hero-inner{display:block;text-align:center;padding:46px 44px 40px}
+.hero .eyebrow{color:var(--teal-deep);font-weight:600;font-size:1.05rem;margin:0 0 4px}
+.hero h1{margin:0 0 16px;font-size:3.05rem;line-height:1.06;letter-spacing:-.02em}
+.hero h1 .a{color:var(--navy)} .hero h1 .b{color:var(--teal)}
+.hero p.lead{color:#54608a;font-size:1.02rem;max-width:42em;margin:0 auto 24px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.chip{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.7);
+  border:1px solid #e6e8f7;border-radius:13px;padding:9px 13px;font-size:.82rem;font-weight:500;color:#48527a}
+.chip .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+.chip .ic svg{width:16px;height:16px}
+/* hero art */
+.hero-art{position:relative;min-height:280px}
+.hero-art svg{width:100%;height:auto;display:block}
+.hero-art img{width:100%;height:auto;display:block;border-radius:18px}
+
+/* ---------- Section cards (home) ---------- */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:26px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 20px;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);
+  transition:transform .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.card .top{display:flex;align-items:flex-start;gap:12px}
+.badge{width:30px;height:30px;border-radius:50%;color:#fff;font-family:'Poppins';font-weight:600;
+  font-size:.95rem;display:grid;place-items:center;flex:0 0 auto}
+.card h3{margin:0;font-size:1.16rem;line-height:1.18;color:var(--navy)}
+.card .sub{color:var(--muted);font-size:.86rem;margin:6px 0 0}
+.card .mid{display:flex;align-items:center;justify-content:space-between;margin:16px 0 8px;min-height:96px}
+.card .art{width:110px;height:104px;flex:0 0 auto;display:grid;place-items:center}
+.card .art img{max-width:100%;max-height:100%;object-fit:contain}
+.count{width:74px;height:74px;border-radius:50%;display:grid;place-content:center;text-align:center;flex:0 0 auto}
+.count b{font-family:'Poppins';font-weight:700;font-size:1.5rem;line-height:1}
+.count span{font-size:.66rem;letter-spacing:.03em;text-transform:uppercase;font-weight:600;opacity:.8}
+.card .label{font-size:.74rem;font-weight:600;letter-spacing:.02em;color:var(--muted);margin:6px 0}
+.card ul{list-style:none;margin:2px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+.card ul li{font-size:.8rem;color:#54608a;display:flex;align-items:center;gap:7px}
+.card ul li::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.55;flex:0 0 auto}
+.card .cta{margin-top:auto;padding-top:16px}
+.card .cta button{width:100%;border:1.5px solid var(--line);background:#fff;border-radius:22px;
+  padding:11px;font-weight:600;font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:8px;
+  color:var(--navy);transition:.16s}
+.card .cta button svg{width:15px;height:15px;transition:transform .16s}
+.card .cta button:hover svg{transform:translateX(3px)}
+.mission{margin-top:22px;background:#eef1fb;border-radius:14px;padding:14px 20px;
+  color:#5b678f;font-size:.9rem;display:flex;align-items:center;gap:10px}
+.mission svg{width:18px;height:18px;color:var(--teal);flex:0 0 auto}
+
+/* ---------- Section pages ---------- */
+.backbtn{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--line);background:#fff;color:var(--navy);border-radius:22px;padding:8px 15px;font-weight:600;font-size:.86rem;margin-bottom:22px;transition:.15s;cursor:pointer}
+.backbtn:hover{background:#eef1fb;border-color:#d6dcf0}
+.backbtn svg{width:16px;height:16px}
+.page-head{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+.page-head .pic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;flex:0 0 auto}
+.page-head .pic svg{width:26px;height:26px}
+.page-head h2{margin:0;font-size:1.85rem;color:var(--navy);letter-spacing:-.01em}
+.page-head p{margin:3px 0 0;color:var(--muted);font-size:.95rem}
+.cat{margin-top:34px}
+.cat-title{display:flex;align-items:center;gap:11px;margin:0 0 14px;font-size:1.12rem;color:var(--navy)}
+.cat-title .bar{width:5px;height:20px;border-radius:3px;flex:0 0 auto}
+.cat-title .cat-ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+.cat-title .cat-ic svg{width:19px;height:19px}
+.cat-title .n{margin-left:auto;font-size:.78rem;font-weight:600;color:var(--muted);
+  background:#eef1fb;border-radius:20px;padding:3px 11px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+.item{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 16px;
+  display:flex;gap:13px;align-items:flex-start;box-shadow:var(--shadow-sm);transition:.16s}
+.item:hover{border-color:#d6dcf0;box-shadow:var(--shadow)}
+.item .ficon{width:38px;height:38px;border-radius:10px;flex:0 0 auto;display:grid;place-items:center;
+  background:#fdecec}
+.item .ficon.vid{background:#e7f0fc} .item .ficon.img{background:#eaf6ee}
+.item .ficon svg{width:19px;height:19px}
+.item .body{flex:1;min-width:0}
+.item .ttl{font-weight:600;font-size:.92rem;color:var(--ink);line-height:1.28}
+.item .meta{font-size:.76rem;color:var(--muted);margin-top:3px}
+.item .acts{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap}
+.btn{border:none;border-radius:9px;padding:7px 13px;font-size:.8rem;font-weight:600;display:inline-flex;
+  align-items:center;gap:6px;transition:.15s}
+.btn svg{width:14px;height:14px}
+.btn-open{background:var(--teal);color:#fff}.btn-open:hover{background:var(--teal-deep)}
+.btn-dl{background:#eef1fb;color:var(--navy)}.btn-dl:hover{background:#e2e7f8}
+.btn-pending{background:#f3f4f8;color:#9aa3bd;cursor:default;border:1px dashed #d7dbe8}
+.btn-pending svg{opacity:.7}
+
+/* text pages */
+.doc{max-width:820px}
+.doc h2{color:var(--navy);font-size:1.85rem;margin:0 0 8px}
+.doc h3{color:var(--teal-deep);margin:26px 0 8px;font-size:1.12rem;display:flex;align-items:center;gap:9px}
+.doc p{color:#4c577b;margin:0 0 14px}
+.doc .block{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:18px 22px;margin:14px 0;box-shadow:var(--shadow-sm)}
+.doc .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.doc .contact-grid .block p{margin:4px 0;font-size:.92rem}
+.doc .contact-grid .lbl{font-weight:600;color:var(--navy);font-size:.82rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px}
+
+/* search results */
+.sr-empty{color:var(--muted);padding:30px 0;text-align:center}
+.sr-count{color:var(--muted);font-size:.9rem;margin:2px 0 20px}
+
+/* footer */
+footer{border-top:1px solid var(--line);background:#fff;margin-top:40px}
+.foot{display:flex;flex-wrap:wrap;gap:22px;align-items:center;padding:26px 0;color:var(--muted);font-size:.86rem}
+.foot .f{display:flex;align-items:center;gap:9px}
+.foot svg{width:17px;height:17px;color:var(--teal)}
+.foot .sep{margin-left:auto}
+
+@media(max-width:1080px){
+  .cards{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:2.5rem}
+}
+@media(max-width:760px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;position:absolute;top:78px;left:0;right:0;flex-direction:column;
+    align-items:stretch;background:#fff;border-bottom:1px solid var(--line);padding:12px;gap:4px}
+  .nav-links.open .search-box{order:-1;margin-bottom:6px}
+  .menu-toggle{display:grid;place-items:center}
+  .hero-inner{grid-template-columns:1fr;padding:28px 24px}
+  .hero-art{display:none}
+  .hero h1{font-size:2.15rem}
+  .cards{grid-template-columns:1fr}
+  .doc .contact-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand" onclick="go('home')">
+      <img class="brandlogo" src="data:image/webp;base64,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" alt="Ramathibodi Neonatal Library logo" />
+      <div class="wm"><span class="a">Ramathibodi</span> <span class="b">Neonatal Library</span></div>
+    </div>
+    <button class="menu-toggle" onclick="document.getElementById('navlinks').classList.toggle('open')" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="nav-links" id="navlinks">
+      <button data-nav="home" class="active" onclick="go('home')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</button>
+      <button data-nav="about" onclick="go('about')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>About</button>
+      <button data-nav="howto" onclick="go('howto')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 0c0 1.7-2.5 2-2.5 4M12 17h.01"/></svg>How to use</button>
+      <button data-nav="contact" onclick="go('contact')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Contact</button>
+      <div class="search-box">
+        <input id="q" type="text" placeholder="Search…" oninput="onSearch(this.value)" onkeydown="if(event.key==='Enter')onSearch(this.value)" aria-label="Search the library" />
+        <button class="go" onclick="onSearch(document.getElementById('q').value)" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ HOME ============ -->
+<section id="view-home" class="view show">
+  <div class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">Welcome to</p>
+        <h1><span class="a">Ramathibodi</span><br/><span class="b">Neonatal Library</span></h1>
+        <p class="lead">A learning platform created for Neonatology Fellows, Pediatric Residents, Medical Students, and healthcare professionals. Explore neonatal guidelines, landmark publications, educational topics, and teaching videos — all in one place.</p>
+        <div class="chips">
+          <div class="chip"><span class="ic" style="background:#dcf1ef;color:#0f9c9b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M12 5v14"/></svg></span>Evidence-based content</div>
+          <div class="chip"><span class="ic" style="background:#e6e2f8;color:#7c6bd6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/></svg></span>Trusted by Rama experts</div>
+          <div class="chip"><span class="ic" style="background:#fbeccd;color:#e0972a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M15 20c0-2 1.5-3.4 3.5-3.4"/></svg></span>For learners at every level</div>
+          <div class="chip"><span class="ic" style="background:#dcecfb;color:#3f7bd6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></span>Updated regularly</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cards" id="homeCards"></div>
+
+  <div class="mission">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10c.7.7 1 1.4 1 2h6c0-.6.3-1.3 1-2a6 6 0 00-4-10z"/></svg>
+    Our mission is to support excellence in neonatal education and patient care.
+  </div>
+</section>
+
+<!-- ============ SECTION PAGES ============ -->
+<section id="view-guidelines" class="view"><div class="page-pad" id="page-guidelines"></div></section>
+<section id="view-publications" class="view"><div class="page-pad" id="page-publications"></div></section>
+<section id="view-topics" class="view"><div class="page-pad" id="page-topics"></div></section>
+<section id="view-procedures" class="view"><div class="page-pad" id="page-procedures"></div></section>
+
+<!-- ============ SEARCH ============ -->
+<section id="view-search" class="view"><div class="page-pad">
+  <button class="backbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>Back to Home</button>
+  <div class="page-head">
+    <div class="pic" style="background:#e6f6f5;color:#0f9c9b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg></div>
+    <div><h2 id="searchTitle">Search</h2><p id="searchSub"></p></div>
+  </div>
+  <div id="searchResults"></div>
+</div></section>
+
+<!-- ============ ABOUT ============ -->
+<section id="view-about" class="view"><div class="page-pad doc">
+  <button class="backbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>Back to Home</button>
+  <h2>About</h2>
+  <p>Ramathibodi Neonatal Library is an educational platform developed by the Division of Neonatology, Department of Pediatrics, Faculty of Medicine Ramathibodi Hospital, Mahidol University.</p>
+  <p>The library is designed to support Neonatology Fellows, Pediatric Residents, Medical Students, and healthcare professionals by providing centralized access to neonatal clinical guidelines, landmark publications, educational resources, and teaching videos.</p>
+  <p>Our goal is to promote evidence-based practice, enhance neonatal education, and facilitate lifelong learning through reliable and up-to-date resources.</p>
+</div></section>
+
+<!-- ============ HOW TO USE ============ -->
+<section id="view-howto" class="view"><div class="page-pad doc">
+  <button class="backbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>Back to Home</button>
+  <h2>How to use</h2>
+  <p>The library is organized into four main sections:</p>
+  <h3>📘 Guidelines</h3>
+  <p>Browse Ramathibodi neonatal clinical guidelines organized by specialty. These evidence-based PDF documents serve as practical references for daily clinical practice.</p>
+  <h3>📚 Important Publications</h3>
+  <p>Explore landmark neonatal publications categorized by organ system to support evidence-based learning and journal review.</p>
+  <h3>🎓 Educational Topics &amp; References</h3>
+  <p>Access curated educational materials, including teaching slides, board review resources, and recommended references for neonatal medicine.</p>
+  <h3>🎥 Videos</h3>
+  <p>Watch procedure demonstrations, teaching sessions, clinical skills, and educational videos designed to complement neonatal training.</p>
+  <p>Use the search function or browse by category to quickly find the information you need.</p>
+</div></section>
+
+<!-- ============ CONTACT ============ -->
+<section id="view-contact" class="view"><div class="page-pad doc">
+  <button class="backbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>Back to Home</button>
+  <h2>Contact</h2>
+  <p>Division of Neonatology, Department of Pediatrics, Faculty of Medicine Ramathibodi Hospital, Mahidol University.</p>
+  <div class="contact-grid">
+    <div class="block">
+      <div class="lbl">Address</div>
+      <p>Office of the Division of Neonatology</p>
+      <p>9th Floor, Building 1</p>
+      <p>270 Rama VI Road, Ratchathewi, Bangkok 10400, Thailand</p>
+    </div>
+    <div class="block">
+      <div class="lbl">Phone &amp; Fax</div>
+      <p>Telephone: +66 2 201 1816 ext. 11</p>
+      <p>Fax: +66 2 201 1816 ext. 12</p>
+    </div>
+  </div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap foot">
+  <div class="f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5"/></svg>
+    Division of Neonatology, Department of Pediatrics, Ramathibodi Hospital</div>
+  <div class="f sep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+    Evidence-based. Patient-centered.</div>
+</div></footer>
+
+<script>
+/* ============================================================
+   DATA MODEL
+   To activate a download link, paste the Google Drive FILE ID
+   into the item's "id" field (the part in the Drive URL after
+   /file/d/ ... /view). Items with id:null show "Link pending".
+   ============================================================ */
+const DATA = {
+  guidelines: {
+    meta:{title:"Guidelines", sub:"Ramathibodi neonatal clinical guidelines, organized by specialty.",
+      color:"var(--c-guide)", pic:'<path d="M4 5h16v14H4z"/><path d="M12 5v14"/>'},
+    cats:[
+      {name:"CPR & Perimortem Cesarean Section", items:[
+        {t:"CPR Newborn Flow — Team Roles & Responsibilities (Main Building)", id:"1pzIVq2qqHiHZlqBruOGU8IqUQRJK7P7i"},
+        {t:"Perimortem Cesarean Section (ER, Main Building)", id:"19c9s-E4rZukhZ4jUEKFuGruKIqed_ZP5"},
+        {t:"Perimortem Cesarean Section (Ward, Main Building)", id:"1rUtJxjxT9oXUcH5S2ogtBg9mbWP3JDxt"},
+      ]},
+      {name:"General Guidelines", items:[
+        {t:"Birth Before Arrival (BBA)", id:"1DSp8lHp7tAWYOIaKYPydn5sW3mWv6UB4"},
+        {t:"Blood Component Transfusion (2024)", id:"1fq3S831c4eyXc-M4mgEDfS5Sac-Q6jcd"},
+        {t:"EOS Management (Main Building)", id:"16VH2FbatftaNLn-hb_NEUQ6HzvHpL2TB"},
+        {t:"Newborn Hearing Screening", id:"1d9fbCepraUqkjaUEcNqk98od8SR-Zw8N"},
+        {t:"Infant at Risk of Hypoglycemia", id:"1EsTXrskFQICpYlld-z-Fzt2EXuh_QFYq"},
+        {t:"Maternal Breast Problems — Management", id:"1fzW-dEPukDymHjY9x4So5TBfp2fj74x-"},
+        {t:"Maternal Substance Use & NAS Score Evaluation", id:"10o2qAWKXsbZ1dVIZmPdxHddmr29aNa02"},
+        {t:"Therapeutic Hypothermia", id:"1tCvxaGCHy1dzhaDOIbNvOrmeQz-JhrcT"},
+        {t:"Care of Referred Pregnant Women", id:"1GqFNHHfrznX5wGRePdW-6nJ--pk_huDZ"},
+      ]},
+      {name:"Neonatal Hyperbilirubinemia", items:[
+        {t:"G6PD Deficiency & Intermediate Management", id:"1JYfg-WtObxU3jFoecMRZ8202kMo74xMR"},
+        {t:"Neonatal Hyperbilirubinemia — Birth Hospitalization", id:"1hYpaN0ZkI-386W4eUuSdfl--4B0Ufo7b"},
+        {t:"Neonatal Hyperbilirubinemia — OPD", id:"1tqYd3z-ThWEUni2i9pqyekH44ZcSrFmr"},
+        {t:"Phototherapy & Exchange Transfusion Thresholds (<35 wk, Maisels 2012)", id:"1aokQRezF10_ib7OuewcybX6YUq7oHKk9"},
+        {t:"CPG for Neonatal Hyperbilirubinemia 2025 — E-Book", id:"1EZq2h_sY7Gm_-g8-gUW-Sjy--nYo0SOM"},
+      ]},
+      {name:"Nutrition (TPN & Enteral Feeding)", items:[
+        {t:"Feeding Protocol", id:"1mwQQSvWRVgbgYcv9S3sTmJGAAMGSCG_C"},
+        {t:"Gastric Residual Volume Management", id:"1bw1Ga1Aof7_D1WfTVkeEhrqdUKMQdScQ"},
+        {t:"Screening for Osteopenia of Prematurity", id:"1-unsHnEDIOiPY9rpvPdShBwiabhH1qWj"},
+        {t:"TPN & Enteral Nutrition for VLBW Infants", id:"1ru5if_m3rD1oOKFY8bc3x4c2T-KWX73n"},
+      ]},
+      {name:"Resuscitation & Transportation", items:[
+        {t:"COVID-19 Newborn Reception & Care (SPDMC)", id:"1j7rkE0vLsZZBmmmpxPPupaP24sYo0WZs"},
+        {t:"COVID-19 Newborn Reception & Care (Main Building)", id:"1TycSKLd3Juy9vCckvwAfLvK01b-VWhno"},
+        {t:"Indication for Cord Blood Gas Collection", id:"1XmKY2CAQ_UfhVSJwT_G5kKsXcJwrcvzg"},
+        {t:"Indications for Pediatrician Attendance at Delivery", id:"1n3Q6bxJYt-utYnrs-U9y5P33xt1NiWPu"},
+        {t:"Radiant Warmer Temperature Setup (Babyroo Model)", id:"1g7MWwqho-0fh_axgaT4QGaCGWDhD8ozr"},
+        {t:"Transport Incubator Guideline for Newborn Reception", id:"1Q0Obyrbxbm5nX4o1jGEqhMxjjrqTlCpy"},
+        {t:"Update Neonatal Resuscitation 2025", url:"https://www.rama.mahidol.ac.th/medical_services/sites/default/files/public/6.%20Update%20Neonatal%20Resuscitation%202025%2C%20%E0%B8%AD.%E0%B8%9E%E0%B8%A4%E0%B8%AB%E0%B8%B1%E0%B8%AA.pdf"},
+      ]},
+    ]
+  },
+  publications: {
+    meta:{title:"Important Publications", sub:"Landmark neonatal publications, categorized by organ system.",
+      color:"var(--c-pub)", pic:'<path d="M4 5h10a2 2 0 012 2v12H6a2 2 0 01-2-2z"/><path d="M20 19V7a2 2 0 00-2-2"/>'},
+    cats:[
+      {name:"Respiratory (RS)", icon:'<path d="M9 4v7"/><path d="M15 4v7"/><path d="M9 11c-2.2 0-3.2 1.8-3.2 4.2 0 1.6.3 3 .8 3.9.5.9 1.9.8 2.3-.2.5-1.1.8-2.6.8-4.2V11z"/><path d="M15 11c2.2 0 3.2 1.8 3.2 4.2 0 1.6-.3 3-.8 3.9-.5.9-1.9.8-2.3-.2-.5-1.1-.8-2.6-.8-4.2V11z"/>', items:[
+        {t:"High-flow vs CPAP for primary respiratory support (HIPSTER)", meta:"NEJM 2016 · Non-invasive ventilation", id:"1oUJ3VtJ-GfCdWUo2VFrTR-F-77Luh31v"},
+        {t:"High-flow vs CPAP for primary respiratory support (HUNTER)", meta:"NEJM 2019 · Non-invasive ventilation", id:"1ZGXXnT1r7qq8v6AqNuR5M7QuzBujO482"},
+        {t:"Early CPAP vs Surfactant (SUPPORT)", meta:"NEJM 2010 · Non-invasive ventilation", id:"1Cu2iw_omtSITx1_90jyNPIhcLbGjmgq8"},
+        {t:"CPAP vs Intubation at birth (COIN)", meta:"NEJM 2008 · Non-invasive ventilation", id:"183CE-TKKuW6jVPm3PCauOim6vqGMHbGI"},
+        {t:"High-flow vs CPAP after extubation", meta:"NEJM 2013 · Non-invasive ventilation", id:"1FphVKqQjmAsBpxwjsQwaGnj_DEHoI9KT"},
+        {t:"NIPPV vs NCPAP after extubation", meta:"Cochrane 2023 · Non-invasive ventilation", id:"1Nyxq6796NZeyTGiDoL38ccfFz4l6y36h"},
+        {t:"Higher vs Lower oxygen saturations (COT)", meta:"JAMA 2013 · O₂ saturation targets", id:"1w1CQWAfcKaevJXI-oNTL1TIEksHlmDYC"},
+        {t:"Target ranges of oxygen saturation (SUPPORT)", meta:"NEJM 2010 · O₂ saturation targets", id:"1Cu2iw_omtSITx1_90jyNPIhcLbGjmgq8"},
+        {t:"Oxygen saturation targeting (NeOProM)", meta:"JAMA 2018 · O₂ saturation targets", id:"1YGQvao4ij8AUWQS2t6fBBnLGRCt_zi03"},
+        {t:"Oxygen saturation and outcomes (BOOST II)", meta:"NEJM 2013 · O₂ saturation targets", id:"18mtuq4ebo36Y7i3B3hv8WWE7YNcX8mcV"},
+        {t:"Hydrocortisone 14–28 days (NICHD)", meta:"NEJM 2022 · BPD & postnatal steroids", id:"14Fu8F4Tl7DVqom83m0ZdKNpXJlqT1BGt"},
+        {t:"Hydrocortisone 7–14 days (STOP-BPD)", meta:"JAMA 2019 · BPD & postnatal steroids", id:"1YIf5C_TjcXMd-NArFCQy-wnnwXUT3je7"},
+        {t:"Early Inhaled Budesonide (NEUROSIS)", meta:"NEJM 2015 · BPD & postnatal steroids", id:"12HI2Abmq1hh4lXebxRbjkSobur-j6j8L"},
+        {t:"Low-Dose Dexamethasone (DART)", meta:"Pediatrics 2006 · BPD & postnatal steroids", id:"1psKiWNrfpenuFkUWwUW5FqPx398k17Pe"},
+        {t:"Early low-dose hydrocortisone ≤7 days (PRIMILOC)", meta:"JAMA 2017 · BPD & postnatal steroids", id:"1IiyM96t15IRuoX0SDdLm3fiZkAiXwhFU"},
+        {t:"Postnatal steroid management in evolving BPD", meta:"J Perinatol 2021 · BPD & postnatal steroids", id:"1DrNSRWtpTOton9qvOPAZTkaMo47sl3_g"},
+        {t:"Guidelines for surfactant replacement therapy", meta:"Canadian Paediatric Society 2021 · RDS & surfactant", id:"1kjXbxl_IUUj46sJJ3BB7E4PwUTaq3avW"},
+        {t:"European consensus guidelines on RDS 2022", meta:"Neonatology 2023 · RDS & surfactant", id:"1Ud-t55BkjBvgN2yrv0PU4_Mb93zq33nm"},
+        {t:"Surfactant therapy via thin catheter", meta:"Cochrane 2021 · RDS & surfactant", id:"137cpO6qngPXk3V2nWg3Um2rICt5-_SYW"},
+        {t:"PPHN — etiology and pathogenesis", meta:"Semin Fetal Neonatal Med 2022 · PPHN", id:"1BlgtgXpgnPW5j40WvNTvK3c7YL_42ML4"},
+        {t:"PPHN — pathophysiology and management", meta:"Clin Perinatol 2021 · PPHN", id:"1jm-FrpFDGKj9Jwf32w3QMvuSL9hi5i_J"},
+        {t:"Management of systemic hypotension in PPHN", meta:"Arch Dis Child Fetal Neonatal 2021 · PPHN", id:"1m8xFw6LYr8Or4QHgL2zQGbtqyrS7PcXW"},
+      ]},
+      {name:"Central Nervous System (CNS)", icon:'<path d="M12 5.5a2.8 2.8 0 00-2.8 2.6A2.4 2.4 0 008 12.8 2.4 2.4 0 0010.5 16H12"/><path d="M12 5.5a2.8 2.8 0 012.8 2.6A2.4 2.4 0 0116 12.8 2.4 2.4 0 0113.5 16H12"/><path d="M12 5.5V16"/>', items:[
+        {t:"Head cooling (CoolCap)", meta:"Lancet 2005 · HIE & birth asphyxia", id:"1vuGK1_esXRnIOiUTfHee1Udav0SwPXZw"},
+        {t:"Whole body hypothermia (NICHD)", meta:"NEJM 2005 · HIE & birth asphyxia", id:"1gMv3g1p9A8GvXKDZvMQ85bzajf-hOkTu"},
+        {t:"EPO for HIE (HEAL)", meta:"NEJM 2022 · HIE & birth asphyxia", id:"1YPl8Wao3seqp_7DCqkEMMJQ3eJUPCLgr"},
+        {t:"Whole body hypothermia (ICE)", meta:"JAMA 2011 · HIE & birth asphyxia", id:"19nHq9akqoIefGfxnMxLfQRlRQESYWSeq"},
+        {t:"Caffeine for AOP (CAP)", meta:"NEJM 2006 · Apnea of prematurity", id:"1JPt8vFcaig8eWFSqAmcvSgLHhsCDbRli"},
+        {t:"CAP — 5-Year Follow-up", meta:"JAMA 2012 · Apnea of prematurity", id:"1JBrW_X8ADHdg_f_ziZ8uUvxqG8Dx0ToR"},
+        {t:"CAP — Long-term effects of caffeine", meta:"NEJM 2007 · Apnea of prematurity", id:"1t1MzosVnMyVW27hN5C09yDx9JjUXUmAh"},
+        {t:"CAP — 11-Year Follow-up", meta:"JAMA 2017 · Apnea of prematurity", id:"1p2FgLObIbt_WJPgH5W08RpSdjhauCVs-"},
+        {t:"Indomethacin Prophylaxis, long-term effects (TIPP)", meta:"NEJM 2001 · IVH & PHVD", id:"1ibTQzjq1Waaw5NxDeZilSB8mzGM74fYs"},
+        {t:"Early vs Late ventricular intervention in PHVD (ELVIS)", meta:"J Pediatr 2020 · IVH & PHVD", id:"1L9xl_UldqZ7gIO7kM6XaE0S1pvUszqtT"},
+        {t:"Neonatal seizures", meta:"NeoReviews 2024 · Seizures", id:"1i8NZ5nuG3kUoIcrKsuBlfnTr8R_5g_Ef"},
+      ]},
+      {name:"Resuscitation", icon:'<path d="M12 20.5S4.5 15.5 4.5 10.3A3.6 3.6 0 0112 8 3.6 3.6 0 0119.5 10.3c0 5.2-7.5 10.2-7.5 10.2z"/><path d="M7.5 12h2l1-2 1.7 3.5 1.2-1.5H16.5"/>', items:[
+        {t:"Preterm resuscitation with low oxygen", meta:"Pediatrics 2009", id:"1MYYjWkJdtEclf_qtWRZV2i0CJascnGAJ"},
+        {t:"Targeted oxygen in resuscitation of preterm (To2rpido)", meta:"Pediatrics 2017", id:"1m3495lnckvK3U5Cy9oQvFGf-bpxRAIgZ"},
+        {t:"Umbilical cord milking vs DCC in preterm", meta:"JAMA 2019", id:"1dMbuK9FPpCRLDFY82blHs75elSyn60iy"},
+        {t:"NRP 9th edition", meta:"Pediatrics 2025", id:"1zE6NgyHYf0ovh5tOL4c5l_aNGFD4icHK"},
+        {t:"Timing of umbilical cord clamping", meta:"Cochrane 2019", id:"1EMyC8CRZWPH3pwIL0B1LS5SZ-SKEsZBu"},
+      ]},
+      {name:"Infectious Disease", icon:'<circle cx="12" cy="12" r="4"/><path d="M12 4v2"/><path d="M12 18v2"/><path d="M4 12h2"/><path d="M18 12h2"/><path d="M6.3 6.3l1.5 1.5"/><path d="M16.2 16.2l1.5 1.5"/><path d="M17.7 6.3l-1.5 1.5"/><path d="M7.8 16.2l-1.5 1.5"/>', items:[
+        {t:"Congenital Syphilis — STI Treatment Guidelines", meta:"CDC", id:"1pb77bzCx8qlvCVMcK--A1HBGvD1btlUN"},
+        {t:"EOS management (late preterm to term)", meta:"AAP 2018", id:"1YXJma52Cls8dFyUg4VcGSJtgfZteaBO4"},
+        {t:"EOS management (preterm)", meta:"AAP 2018", id:"1fXPoqXq6GhjdmeQBaE6wAmliq20G78nr"},
+        {t:"Herpes Simplex", meta:"Red Book 2024", id:"1nHFHK4abIF_FDdZypK8nfczcqLvnExZM"},
+        {t:"Syphilis", meta:"Red Book 2024", id:"1To1FMLglemZotGwZQl0Z4Sn9_J3Isneq"},
+      ]},
+      {name:"Hematology", icon:'<path d="M12 4.5c2.8 3.8 4.8 6.2 4.8 8.7A4.8 4.8 0 017.2 13.2c0-2.5 2-4.9 4.8-8.7z"/>', items:[
+        {t:"Platelet-transfusion thresholds (PLANET-2)", meta:"NEJM 2019", id:"1hZNEPR_RqafsNfUZle62SE7JL542BBwA"},
+        {t:"Low vs high transfusion threshold for ELBW (PINT)", meta:"J Pediatr 2006", id:"1Z8ALA5rIqAFErY98ziSr0BLFGmsK6nI6"},
+        {t:"RBC transfusion in preterm infants", meta:"Neonatology 2018", id:"1u8sgMdzP5OzJiR3E3HM7TPLVmy_eQHoe"},
+      ]},
+      {name:"Cardiovascular (CVS)", icon:'<path d="M12 20.5S4.5 15.5 4.5 10.3A3.6 3.6 0 0112 8 3.6 3.6 0 0119.5 10.3c0 5.2-7.5 10.2-7.5 10.2z"/>', items:[
+        {t:"Expectant vs Ibuprofen for PDA (BeNeDuctus)", meta:"NEJM 2023", id:"1xAvKQ5AUuN7rgUZ4hlZeJEpAS9XBCpGe"},
+        {t:"Placebo, Indomethacin, Ibuprofen, Acetaminophen (meta-analysis)", meta:"JAMA 2018", id:"1RY0bKs4mE69AlEtoxAW_H8TNHDriCGz9"},
+        {t:"Guidelines for Targeted Neonatal Echocardiography", meta:"", id:"1mtPpl1b4MBGpTgtNXBFAMmTTsv2jRgl1"},
+      ]},
+      {name:"Retinopathy of Prematurity (ROP)", icon:'<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/>', items:[
+        {t:"STOP-ROP", meta:"Pediatrics 2000", id:"11Cmu4ifnmBVnUmQw2E5hHlxerIEZUG_E"},
+        {t:"Intravitreal bevacizumab for ROP (BEAT-ROP)", meta:"NEJM 2011", id:"1DMw5jeML6e9lDS38XiHoFxxttk9-dMm3"},
+        {t:"Strategies to prevent severe ROP", meta:"NeoReviews 2020", id:"1WtQ0PWEjHBfg96TXA_XExXsYS_HEN5sJ"},
+      ]},
+      {name:"GI & Nutrition", icon:'<path d="M12 8c-1.2-2-4.2-2.4-5.8-.8C4.4 9 4.2 12.4 6 15.6c1 1.8 2.3 2.6 3.2 2.6.8 0 1.2-.5 2.8-.5s2 .5 2.8.5c.9 0 2.2-.8 3.2-2.6 1.8-3.2 1.6-6.6 0-8.4C16.2 5.6 13.2 6 12 8z"/><path d="M12 8c0-1.6.9-3 2.6-3.4"/>', items:[
+        {t:"Incremental milk-feeding rates in preterm (SIFT)", meta:"NEJM 2019", id:"17TQogLZhFoLPTW5qPSxEtlS4Vak8IGi6"},
+        {t:"Nutritional management of the critically ill neonate", meta:"ESPGHAN 2021", id:"1aTJxEuwKr8on8TiNsA8hhrfsNo2JIoJd"},
+        {t:"Necrotizing enterocolitis", meta:"NEJM 2011", id:"1XDwSCOLNjo0YmnXxJkJkCe4KI20Zge5q"},
+      ]},
+      {name:"Neonatal Jaundice", icon:'<circle cx="12" cy="12" r="3.6"/><path d="M12 3.5v2"/><path d="M12 18.5v2"/><path d="M3.5 12h2"/><path d="M18.5 12h2"/><path d="M6 6l1.4 1.4"/><path d="M16.6 16.6L18 18"/><path d="M18 6l-1.4 1.4"/><path d="M7.4 16.6L6 18"/>', items:[
+        {t:"CPG for neonatal hyperbilirubinemia (AAP)", meta:"Pediatrics 2022", id:"1h281wDDAtrILX0PGOWga6cfk6xFMMTXs"},
+        {t:"Phototherapy for neonatal jaundice", meta:"NEJM 2008", id:"1G_OxdcnAKj-lWBXDdvuZGAzypLkepNB0"},
+      ]},
+      {name:"Dermatology", icon:'<path d="M4 8.5c2-2 4-2 6 0s4 2 6 0 3-1.5 4-1.7"/><path d="M4 13c2-2 4-2 6 0s4 2 6 0 3-1.5 4-1.7"/><path d="M4 17.5c2-2 4-2 6 0s4 2 6 0 3-1.5 4-1.7"/>', items:[
+        {t:"Neonatal dermatology — normal, common & serious conditions", meta:"NeoReviews 2021", id:"1J-fyiy35qF9g2_WGZtjt0N2BKIbnyipD"},
+      ]},
+    ]
+  },
+  topics: {
+    meta:{title:"Educational Topics & References", sub:"Curated teaching slides, board review, and reference resources.",
+      color:"var(--c-topic)", pic:'<path d="M3 8l9-4 9 4-9 4z"/><path d="M7 10v5c0 1 2 2 5 2s5-1 5-2v-5"/>'},
+    cats:[
+      {name:"Resources", items:[
+        {t:"Maternal & Perinatal Updates 2025 — What Pediatricians Need to Know", meta:"Teaching slides · MFM, Ramathibodi", id:"1YGcMfBC5gDnKyou0YW8stboHJd57gW6n"},
+        {t:"Pediatrics 4 Board Review — Neonatal reference cards", meta:"Board review reference", id:"11Uz-ezdfFuFYGyxXFSqVhKSBxJwCQdg9"},
+        {t:"AAP Clinical Practice Guidelines & Policies for Neonatal Care, 2nd ed.", meta:"Reference textbook", id:"1JLMbPKEY_USsC5dWlDHUFi9Xzr8tkukK"},
+      ]},
+    ]
+  },
+  procedures: {
+    meta:{title:"Videos", sub:"Procedure demonstrations, clinical skills, and teaching videos.",
+      color:"var(--c-proc)", pic:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/>'},
+    cats:[
+      {name:"Umbilical Catheter Insertion", items:[
+        {t:"Umbilical Catheter Insertion", meta:"Procedure video", id:"1uvV2ovP4t0nEzpeR7GBaHaXYYbGDNwBW", kind:"vid"},
+      ]},
+      {name:"Pigtail Drainage Catheter", items:[
+        {t:"SKATER Drainage Catheter", meta:"Procedure video", id:"1riUEJ7X7PIM5CqMsZKSj7WVEt9kuxc4x", kind:"vid"},
+        {t:"Rocket Medical Seldinger Drain", meta:"Procedure video", id:"1n6RwfVSccJ2cbU9dSPSTqUBMbPDA5yGd", kind:"vid"},
+        {t:"Rocket — product reference", meta:"Reference image", id:null, kind:"img"},
+        {t:"Rocket — catalogue codes", meta:"Reference image", id:"1kiE1yZ0fXSOOy9_EDUTP_agHOqm1jBk4", kind:"img"},
+        {t:"Skater — product reference", meta:"Reference image", id:"1u5oN4WWyNJwtZaO_IT-X6w9-h7mTdVzp", kind:"img"},
+        {t:"Skater — catalogue codes", meta:"Reference image", id:"1625CWeul0rAuOVAIM5epzK9pBX1QAoy0", kind:"img"},
+        {t:"Skater mini loop", meta:"Reference image", id:"1Y97mVG_PyYPxaDhVyQC_FNmTVpKIj-dW", kind:"img"},
+        {t:"Cook — product reference", meta:"Reference image", id:"1f1tWOe5kL-JRM4QiKjCEk_J4Ju06_20q", kind:"img"},
+      ]},
+    ]
+  }
+};
+
+const ART_IMG = {"guidelines": "data:image/webp;base64,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", "publications": "data:image/webp;base64,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", "topics": "data:image/webp;base64,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", "procedures": "data:image/webp;base64,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"};
+/* home card config */
+const HOME=[
+  {key:"guidelines", n:1, color:"var(--c-guide)", title:"Guidelines",
+   sub:"Ramathibodi Neonatal Guidelines (PDF)", countLabel:"PDFs",
+   chipLabel:"5 Categories",
+   chips:["CPR & Perimortem C/S","General Guidelines","Hyperbilirubinemia","Nutrition & TPN","Resuscitation & Transport"],
+   cta:"Browse Guidelines", art:artDoc()},
+  {key:"publications", n:2, color:"var(--c-pub)", title:"Important Publications",
+   sub:"Landmark papers, organized by system", countLabel:"Papers",
+   chipLabel:"Browse by System",
+   chips:["Respiratory","CNS","Cardiovascular","GI & Nutrition","+ more"],
+   cta:"Explore Publications", art:artBooks()},
+  {key:"topics", n:3, color:"var(--c-topic)", title:"Educational Topics & References",
+   sub:"Curated learning resources for neonatal care", countLabel:"Resources",
+   chipLabel:"Available Resources",
+   chips:["MFM Neonatology Deck","Pediatrics 4 Board Review","AAP CPG Book"],
+   cta:"View Resources", art:artGrad()},
+  {key:"procedures", n:4, color:"var(--c-proc)", title:"Videos",
+   sub:"Procedure and teaching videos", countLabel:"Topics",
+   chipLabel:"Content Examples",
+   chips:["Umbilical Catheter","Pigtail Drainage","Clinical Skills","Teaching Sessions"],
+   cta:"Watch Videos", art:artVideo()},
+];
+
+/* ---------- counts ---------- */
+function count(sec){return DATA[sec].cats.reduce((a,c)=>a+c.items.length,0);}
+const COUNT_OVERRIDE={procedures:2}; // procedures counted as topics
+
+/* ---------- icons for cards ---------- */
+function artDoc(){return `<svg viewBox="0 0 120 120"><rect x="26" y="18" width="60" height="80" rx="8" fill="#fff" stroke="#dfe4f2" stroke-width="2"/><rect x="38" y="34" width="30" height="7" rx="3.5" fill="#e6412f"/><g stroke="#cfd6ea" stroke-width="4" stroke-linecap="round"><path d="M38 52h36M38 62h36M38 72h24"/></g><circle cx="82" cy="86" r="16" fill="#14a89f"/><path d="M82 79v14M75 86h14" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>`;}
+function artBooks(){return `<svg viewBox="0 0 120 120"><g><rect x="24" y="52" width="60" height="12" rx="3" fill="#8f7fe0"/><rect x="28" y="40" width="60" height="12" rx="3" fill="#a99bf0"/><rect x="26" y="28" width="60" height="12" rx="3" fill="#c3b8f7"/></g><circle cx="82" cy="80" r="15" fill="none" stroke="#7c6bd6" stroke-width="5"/><path d="M93 91l10 10" stroke="#7c6bd6" stroke-width="5" stroke-linecap="round"/></svg>`;}
+function artGrad(){return `<svg viewBox="0 0 120 120"><rect x="24" y="60" width="56" height="10" rx="2" fill="#f6c667"/><rect x="28" y="50" width="56" height="10" rx="2" fill="#f2a63b"/><path d="M30 44l30-12 30 12-30 12z" fill="#e0972a"/><path d="M60 44v10" stroke="#e0972a" stroke-width="3"/><rect x="56" y="20" width="30" height="18" rx="2" fill="#2b3450"/><path d="M60 20v-4h22v4" fill="#2b3450"/></svg>`;}
+function artVideo(){return `<svg viewBox="0 0 120 120"><rect x="22" y="34" width="66" height="46" rx="8" fill="#2b3450"/><path d="M50 46l18 11-18 11z" fill="#fff"/><circle cx="92" cy="44" r="13" fill="#3f7bd6"/><path d="M88 39l9 5-9 5z" fill="#fff"/></svg>`;}
+
+/* ---------- hero art ---------- */
+function heroArt(){return `
+<svg viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Neonatal care illustration">
+  <defs>
+    <linearGradient id="inc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eaf3fb"/><stop offset="1" stop-color="#e7ecfb"/></linearGradient>
+    <linearGradient id="mon" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#25406f"/><stop offset="1" stop-color="#1a3160"/></linearGradient>
+  </defs>
+  <!-- floating motifs -->
+  <g opacity=".5" fill="#c9d6f2"><path d="M60 40h6v18h-6z"/><path d="M51 49h24v6H51z" transform="translate(3 0)"/></g>
+  <circle cx="120" cy="34" r="7" fill="#f4c9d2" opacity=".7"/>
+  <circle cx="404" cy="150" r="6" fill="#cdbdf2" opacity=".7"/>
+  <path d="M150 26l3 6 6 .8-4.5 4.4 1 6.4-5.5-3-5.5 3 1-6.4-4.5-4.4 6-.8z" fill="#bcd0f2" opacity=".7"/>
+  <!-- incubator -->
+  <rect x="70" y="120" width="250" height="120" rx="26" fill="url(#inc)" stroke="#d6def0" stroke-width="2"/>
+  <rect x="86" y="140" width="218" height="86" rx="18" fill="#fff" opacity=".65"/>
+  <!-- port holes -->
+  <circle cx="96" cy="183" r="20" fill="none" stroke="#cdd8ef" stroke-width="4"/>
+  <circle cx="294" cy="183" r="20" fill="none" stroke="#cdd8ef" stroke-width="4"/>
+  <!-- baby -->
+  <ellipse cx="196" cy="205" rx="70" ry="30" fill="#fdf2f0"/>
+  <path d="M150 205c0-22 22-34 46-34s46 12 46 34" fill="#fbe8e4"/>
+  <circle cx="196" cy="176" r="24" fill="#f7d9c9"/>
+  <path d="M172 172a24 24 0 0148 0z" fill="#bfe3d8"/>
+  <circle cx="188" cy="178" r="2.2" fill="#7a6a63"/><circle cx="204" cy="178" r="2.2" fill="#7a6a63"/>
+  <path d="M191 186q5 4 10 0" stroke="#e3a58c" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- little feet motif -->
+  <circle cx="176" cy="212" r="3" fill="#f4c9d2"/><circle cx="216" cy="214" r="3" fill="#cdbdf2"/>
+  <!-- stand -->
+  <rect x="188" y="240" width="16" height="8" rx="2" fill="#dbe2f2"/>
+  <!-- monitor -->
+  <g transform="translate(330 96)">
+    <rect x="0" y="0" width="96" height="72" rx="10" fill="url(#mon)"/>
+    <rect x="8" y="8" width="80" height="40" rx="6" fill="#0e2247"/>
+    <polyline points="10,34 22,34 27,20 33,44 39,28 46,34 88,34" fill="none" stroke="#7fe0a6" stroke-width="2.4"/>
+    <text x="70" y="20" fill="#7fe0a6" font-family="Poppins" font-size="9" font-weight="700">150</text>
+    <text x="70" y="44" fill="#66c6ff" font-family="Poppins" font-size="9" font-weight="700">98</text>
+    <circle cx="16" cy="60" r="3" fill="#7fe0a6"/><circle cx="28" cy="60" r="3" fill="#f2a63b"/><circle cx="40" cy="60" r="3" fill="#f47d8c"/>
+  </g>
+  <rect x="374" y="168" width="8" height="70" fill="#dbe2f2"/>
+</svg>`;}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function el(html){const t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstChild;}
+function driveOpen(id){return `https://drive.google.com/file/d/${id}/view`;}
+function driveDownload(id){return `https://drive.google.com/uc?export=download&id=${id}`;}
+
+function ficon(kind){
+  if(kind==='vid') return `<div class="ficon vid"><svg viewBox="0 0 24 24" fill="none" stroke="#3f7bd6" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M10 9l5 3-5 3z" fill="#3f7bd6" stroke="none"/></svg></div>`;
+  if(kind==='img') return `<div class="ficon img"><svg viewBox="0 0 24 24" fill="none" stroke="#2f9e57" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M4 18l5-5 4 3 3-3 4 4"/></svg></div>`;
+  return `<div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#e0574a" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg></div>`;
+}
+function acts(it){
+  const kind=it.kind||'pdf';
+  const openLabel = kind==='vid' ? 'Watch' : 'Open';
+  if(it.url){
+    return `<a class="btn btn-open" href="${it.url}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h5"/></svg>${openLabel}</a>`;
+  }
+  if(!it.id){
+    return `<span class="btn btn-pending"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>Link pending</span>`;
+  }
+  let h=`<a class="btn btn-open" href="${driveOpen(it.id)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h5"/></svg>${openLabel}</a>`;
+  if(kind!=='img'){
+    h+=`<a class="btn btn-dl" href="${driveDownload(it.id)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>Download</a>`;
+  }
+  return h;
+}
+function itemCard(it){
+  return `<div class="item">${ficon(it.kind)}<div class="body">
+    <div class="ttl">${it.t}</div>${it.meta?`<div class="meta">${it.meta}</div>`:''}
+    <div class="acts">${acts(it)}</div></div></div>`;
+}
+
+function renderHome(){
+  const box=document.getElementById('homeCards');box.innerHTML='';
+  HOME.forEach(h=>{
+    const c=(COUNT_OVERRIDE[h.key]||count(h.key));
+    const chips=h.chips.map(x=>`<li style="color:${h.color}"><span style="color:#54608a">${x}</span></li>`).join('');
+    box.appendChild(el(`
+      <div class="card">
+        <div class="top">
+          <div class="badge" style="background:${h.color}">${h.n}</div>
+          <div><h3>${h.title}</h3><div class="sub">${h.sub}</div></div>
+        </div>
+        <div class="mid">
+          <div class="art"><img src="${ART_IMG[h.key]}" alt="" loading="lazy"></div>
+          <div class="count" style="background:${hexFade(h.color)}">
+            <b style="color:${h.color}">${c}</b><span style="color:${h.color}">${h.countLabel}</span></div>
+        </div>
+        <div class="label">${h.chipLabel}</div>
+        <ul>${chips}</ul>
+        <div class="cta"><button onclick="go('${h.key}')">${h.cta}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      </div>`));
+  });
+}
+function hexFade(v){ // map accent -> pale bg
+  const m={'var(--c-guide)':'#e2f5f3','var(--c-pub)':'#ece8fa','var(--c-topic)':'#fdf0da','var(--c-proc)':'#e4eefb'};
+  return m[v]||'#eef1fb';
+}
+
+function renderSection(sec){
+  const d=DATA[sec], m=d.meta, box=document.getElementById('page-'+sec);
+  let h=`<button class="backbtn" onclick="go(\'home\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>Back to Home</button><div class="page-head">
+    <div class="pic" style="background:${hexFade(m.color)};color:${m.color}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${m.pic}</svg></div>
+    <div><h2>${m.title}</h2><p>${m.sub}</p></div></div>`;
+  d.cats.forEach(cat=>{
+    const lead = cat.icon
+      ? `<span class="cat-ic" style="background:${hexFade(m.color)};color:${m.color}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${cat.icon}</svg></span>`
+      : `<span class="bar" style="background:${m.color}"></span>`;
+    h+=`<div class="cat"><div class="cat-title">${lead}
+      ${cat.name}<span class="n">${cat.items.length}</span></div>
+      <div class="grid">${cat.items.map(itemCard).join('')}</div></div>`;
+  });
+  box.innerHTML=h;
+}
+
+/* ---------- navigation ---------- */
+const VIEWS=['home','guidelines','publications','topics','procedures','search','about','howto','contact'];
+const NAVSET=['home','about','howto','contact'];
+function go(v){
+  VIEWS.forEach(x=>document.getElementById('view-'+x).classList.toggle('show',x===v));
+  document.querySelectorAll('.nav-links [data-nav]').forEach(b=>{
+    b.classList.toggle('active', b.dataset.nav===v);
+  });
+  if(!NAVSET.includes(v)) document.querySelector('[data-nav="home"]').classList.remove('active');
+  document.getElementById('navlinks').classList.remove('open');
+  if(['guidelines','publications','topics','procedures'].includes(v)) renderSection(v);
+  window.scrollTo({top:0,behavior:'instant'in window?'instant':'auto'});
+}
+
+/* ---------- search ---------- */
+function onSearch(qv){
+  const q=(qv||'').trim().toLowerCase();
+  if(!q){go('home');return;}
+  go('search');
+  let hits=[];
+  ['guidelines','publications','topics','procedures'].forEach(sec=>{
+    DATA[sec].cats.forEach(cat=>cat.items.forEach(it=>{
+      const hay=(it.t+' '+(it.meta||'')+' '+cat.name+' '+DATA[sec].meta.title).toLowerCase();
+      if(hay.includes(q)) hits.push({sec,cat:cat.name,it});
+    }));
+  });
+  document.getElementById('searchTitle').textContent=`Search: “${qv.trim()}”`;
+  document.getElementById('searchSub').textContent=`${DATA.publications.meta.title} · ${hits.length} result${hits.length!==1?'s':''} across the library`;
+  const box=document.getElementById('searchResults');
+  if(!hits.length){box.innerHTML=`<div class="sr-empty">No matches. Try a shorter keyword — a trial name, drug, or topic.</div>`;return;}
+  const bySec={};
+  hits.forEach(h=>{(bySec[h.sec]=bySec[h.sec]||[]).push(h);});
+  let html='';
+  Object.keys(bySec).forEach(sec=>{
+    const m=DATA[sec].meta;
+    html+=`<div class="cat"><div class="cat-title"><span class="bar" style="background:${m.color}"></span>
+      ${m.title}<span class="n">${bySec[sec].length}</span></div><div class="grid">`;
+    html+=bySec[sec].map(h=>{
+      const it=h.it;
+      return `<div class="item">${ficon(it.kind)}<div class="body">
+        <div class="ttl">${it.t}</div><div class="meta">${h.cat}${it.meta?' · '+it.meta:''}</div>
+        <div class="acts">${acts(it)}</div></div></div>`;
+    }).join('');
+    html+=`</div></div>`;
+  });
+  box.innerHTML=html;
+}
+
+renderHome();
+</script>
+</body>
+</html>
