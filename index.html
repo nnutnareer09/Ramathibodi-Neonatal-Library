@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Tour · Ramathibodi Birth Journey</title>
+<meta name="description" content="เยี่ยมชมเสมือนจริง ห้องคลอด หอผู้ป่วยสูติกรรม และหน่วยตรวจผู้ป่วยนอกสูติกรรม คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#5D4A8A;
+  --purple-deep:#443465;
+  --purple-soft:#8A77B5;
+  --lav:#EDE7F6;
+  --lav-2:#F7F4FB;
+  --pink:#F5E9F0;
+  --ink:#3A3050;
+  --ink-2:#6E6488;
+  --line:#E5DEF2;
+  --white:#FFFFFF;
+  --radius:18px;
+  --maxw:1200px;
+  --shadow:0 10px 30px rgba(68,52,101,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Sarabun',sans-serif;color:var(--ink);background:#FDFCFE;line-height:1.75}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.en{font-family:'Playfair Display',serif}
+h2,h3,h4,h5,h6,.brand-name b,nav.main a,th,.hero-text h2,.pt b,.val b,.values-lead b{font-family:'Prompt',sans-serif}
+.icn{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.icn-lg{width:26px;height:26px}
+
+/* ---------- Header ---------- */
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head-in{max-width:var(--maxw);margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand img{height:44px;width:auto}
+.brand-name{line-height:1.25}
+.brand-name b{color:var(--purple-deep);font-size:1.02rem;font-weight:700}
+.brand-name span{display:block;font-size:.78rem;color:var(--purple-soft);font-weight:500}
+nav.main{margin-left:auto;display:flex;gap:4px;align-items:center}
+nav.main a{padding:8px 13px;border-radius:10px;font-size:.88rem;font-weight:500;color:var(--ink-2);transition:.2s}
+nav.main a:hover{background:var(--lav-2);color:var(--purple-deep)}
+nav.main a.active{color:var(--purple-deep);font-weight:700;box-shadow:inset 0 -2.5px 0 var(--purple)}
+.menu-btn{display:none;background:none;border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;font-size:1.05rem;color:var(--purple-deep);cursor:pointer}
+
+/* ---------- Hero ---------- */
+.hero{background:linear-gradient(115deg,#F4EEF8 0%,#F9F1F4 55%,#FBEFF0 100%);border-bottom:1px solid var(--line);overflow:hidden}
+.hero-in{max-width:var(--maxw);margin:0 auto;padding:0 20px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:20px;min-height:380px}
+.hero-text{padding:48px 0}
+.hero-text h1{font-size:clamp(2rem,4.4vw,3rem);line-height:1.12;color:var(--purple-deep)}
+.hero-text h2{font-size:clamp(1.15rem,2.3vw,1.6rem);color:var(--purple);margin-top:6px;font-weight:700}
+.hero-text p{margin-top:16px;color:var(--ink-2);font-size:1rem;max-width:44ch}
+.hero-points{margin-top:26px;display:flex;gap:28px;flex-wrap:wrap}
+.pt{display:flex;align-items:center;gap:11px}
+.pt .ic{width:44px;height:44px;border-radius:50%;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--purple);box-shadow:0 4px 10px rgba(93,74,138,.12)}
+.pt b{display:block;font-size:.9rem;color:var(--purple-deep);line-height:1.35}
+.pt span{font-size:.78rem;color:var(--ink-2)}
+.hero-img{position:relative;height:100%;min-height:340px}
+.hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 22%);mask-image:linear-gradient(90deg,transparent 0%,#000 22%)}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:34px 20px 10px;display:grid;grid-template-columns:262px 1fr;gap:24px;align-items:start}
+.side{position:sticky;top:78px;display:flex;flex-direction:column;gap:18px}
+.side-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.side-card h3{background:var(--purple);color:#fff;font-size:.92rem;font-weight:600;padding:12px 18px;letter-spacing:.02em}
+.place-list{list-style:none}
+.place-list a{display:flex;align-items:center;gap:12px;padding:14px 16px;border-top:1px solid var(--lav-2);transition:.2s}
+.place-list a:hover{background:var(--lav-2)}
+.place-list a.active{background:var(--lav);box-shadow:inset 3px 0 0 var(--purple)}
+.place-ic{width:40px;height:40px;border-radius:12px;background:var(--lav-2);display:grid;place-items:center;color:var(--purple);flex:0 0 auto}
+.place-list b{display:block;font-size:.88rem;color:var(--purple-deep);line-height:1.3;font-weight:600}
+.place-list span{font-size:.72rem;color:var(--ink-2)}
+.place-list .arrow{margin-left:auto;color:var(--purple-soft);font-size:.85rem}
+
+.ask-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 20px 18px;position:relative;overflow:hidden}
+.ask-card h4{color:var(--purple-deep);font-size:1.02rem;font-weight:700}
+.ask-card p{font-size:.83rem;color:var(--ink-2);margin-top:2px}
+.ask-tel{display:inline-flex;align-items:center;gap:8px;margin-top:12px;border:1.5px solid var(--purple);color:var(--purple-deep);font-weight:700;padding:8px 16px;border-radius:999px;font-size:.9rem;transition:.2s}
+.ask-tel:hover{background:var(--purple);color:#fff}
+.ask-hours{margin-top:10px;font-size:.78rem;color:var(--ink-2);line-height:1.6}
+
+/* music pill */
+.music-card{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px 16px}
+.music-card button{border:none;cursor:pointer;background:var(--lav);color:var(--purple-deep);width:38px;height:38px;border-radius:50%;font-size:1rem;display:grid;place-items:center;transition:.2s;flex:0 0 auto}
+.music-card button.on{background:var(--purple);color:#fff}
+.music-card small{font-size:.75rem;color:var(--ink-2);line-height:1.45}
+
+/* ---------- Sections ---------- */
+.content{display:flex;flex-direction:column;gap:26px;min-width:0}
+section.place{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;scroll-margin-top:86px}
+.place-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.place-head .big-ic{width:52px;height:52px;border-radius:16px;background:var(--lav);display:grid;place-items:center;color:var(--purple-deep)}
+.place-head h2{font-size:1.3rem;color:var(--purple-deep);line-height:1.3}
+.place-head small{display:block;font-size:.85rem;color:var(--purple-soft);font-weight:500}
+.place-desc{color:var(--ink-2);font-size:.93rem;margin:-6px 0 18px;max-width:75ch}
+
+.media-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:start}
+.video-box{position:relative;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 12px 28px rgba(68,52,101,.18)}
+.video-box video{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#000}
+.route-chip{margin-top:10px;font-size:.78rem;color:var(--ink-2);display:flex;gap:8px;align-items:flex-start}
+.route-chip .dot{color:var(--purple);font-weight:700}
+.gal h5{font-size:.95rem;color:var(--purple-deep);font-weight:700;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.gal h5 button{background:none;border:none;cursor:pointer;font-family:inherit;font-size:.8rem;color:var(--purple);font-weight:600;display:inline-flex;gap:6px;align-items:center}
+.gal h5 button:hover{text-decoration:underline}
+.gal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gal-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;cursor:pointer;transition:.25s;border:1px solid var(--line)}
+.gal-grid img:hover{transform:scale(1.025);box-shadow:0 8px 18px rgba(68,52,101,.2)}
+
+.contact-line{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px 22px;background:var(--lav-2);border:1px dashed var(--line);border-radius:12px;padding:12px 18px;font-size:.86rem;color:var(--ink-2)}
+.contact-line b{color:var(--purple-deep);font-weight:600}
+.contact-line a{color:var(--purple);font-weight:700}
+.contact-line a:hover{text-decoration:underline}
+
+/* OPD photo feature + schedule */
+.opd-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:start}
+.feature-img img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px;box-shadow:0 12px 28px rgba(68,52,101,.16);cursor:pointer}
+.sched{margin-top:20px;overflow-x:auto}
+.sched h5{font-size:.95rem;color:var(--purple-deep);font-weight:700;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:.84rem;min-width:560px}
+th{background:var(--purple);color:#fff;font-weight:600;padding:9px 12px;text-align:left}
+th:first-child{border-radius:10px 0 0 0}th:last-child{border-radius:0 10px 0 0}
+td{padding:9px 12px;border-bottom:1px solid var(--lav);color:var(--ink-2);vertical-align:top}
+tr:nth-child(even) td{background:var(--lav-2)}
+td:first-child{font-weight:600;color:var(--purple-deep);white-space:nowrap}
+
+/* amenities */
+.amen{margin-top:20px;background:var(--lav-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.amen h5{font-size:1rem;color:var(--purple-deep);font-weight:700}
+.amen p{font-size:.8rem;color:var(--ink-2);margin:2px 0 12px}
+.amen ol{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px 24px;counter-reset:am}
+.amen li{counter-increment:am;font-size:.87rem;display:flex;gap:11px;align-items:baseline}
+.amen li::before{content:counter(am);flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--purple);color:#fff;font-size:.7rem;font-weight:700;display:grid;place-items:center;transform:translateY(3px)}
+
+/* ---------- Value strip ---------- */
+.values{max-width:var(--maxw);margin:30px auto 0;padding:0 20px}
+.values-in{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 30px;display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:20px;align-items:center}
+.values-lead{display:flex;gap:14px;align-items:center}
+.values-lead .ic{color:var(--purple);display:grid;place-items:center}
+.values-lead b{color:var(--purple-deep);font-size:1rem;line-height:1.4;display:block}
+.values-lead span{font-size:.78rem;color:var(--ink-2)}
+.val{text-align:center}
+.val .ic{color:var(--purple);margin-bottom:6px;display:flex;justify-content:center}
+.val b{display:block;font-size:.87rem;color:var(--purple-deep);font-weight:600}
+.val span{font-size:.74rem;color:var(--ink-2)}
+
+/* ---------- Footer ---------- */
+footer{margin-top:36px;background:var(--purple-deep);color:#D9CFEA}
+.foot-in{max-width:var(--maxw);margin:0 auto;padding:34px 20px 26px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:28px;font-size:.84rem}
+.foot-brand{display:flex;gap:13px;align-items:flex-start}
+.foot-brand img{height:56px;background:#fff;border-radius:12px;padding:5px}
+.foot-brand b{color:#fff;font-size:.95rem;line-height:1.45;display:block}
+footer h6{color:#fff;font-size:.88rem;font-weight:700;margin-bottom:10px}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+footer a:hover{color:#fff;text-decoration:underline}
+.foot-note{border-top:1px solid rgba(255,255,255,.15);margin-top:6px}
+.foot-note div{max-width:var(--maxw);margin:0 auto;padding:14px 20px;font-size:.72rem;color:#B9ABD6;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* ---------- Lightbox ---------- */
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(38,28,60,.92);display:none;align-items:center;justify-content:center;flex-direction:column;padding:26px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:min(92vw,1080px);max-height:76vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);object-fit:contain}
+.lb-cap{color:#E8E0F5;font-size:.85rem;margin-top:14px;text-align:center}
+.lb-nav{display:flex;gap:14px;margin-top:14px}
+.lb-nav button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:1rem;border-radius:999px;padding:9px 22px;cursor:pointer;font-family:inherit;transition:.2s}
+.lb-nav button:hover{background:rgba(255,255,255,.25)}
+.lb-x{position:absolute;top:18px;right:22px;background:none;border:none;color:#fff;font-size:1.7rem;cursor:pointer}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1020px){
+  nav.main{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;padding:10px 16px;gap:2px}
+  nav.main.open{display:flex}
+  .menu-btn{display:block}
+  .wrap{grid-template-columns:1fr}
+  .side{position:static;flex-direction:column}
+  .hero-in{grid-template-columns:1fr;min-height:0}
+  .hero-img{min-height:230px;order:-1;margin:0 -20px}
+  .hero-img img{-webkit-mask-image:linear-gradient(180deg,#000 65%,transparent 100%);mask-image:linear-gradient(180deg,#000 65%,transparent 100%)}
+  .hero-text{padding:8px 0 38px}
+  .media-grid,.opd-grid{grid-template-columns:1fr}
+  .values-in{grid-template-columns:1fr 1fr;gap:22px}
+  .values-lead{grid-column:1/-1}
+  .foot-in{grid-template-columns:1fr}
+  .amen ol{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-in">
+    <a class="brand" href="#top">
+      <img src="assets/img/logo.png" alt="คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล">
+      <span class="brand-name"><b>Ramathibodi</b><span>Birth Journey</span></span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="เมนู">☰</button>
+    <nav class="main" id="mainNav">
+      <a href="#top" class="active">Home</a>
+      <a href="#opd" data-nav="opd">หน่วยตรวจผู้ป่วยนอกสูติกรรมฯ</a>
+      <a href="#labor" data-nav="labor">ห้องคลอด</a>
+      <a href="#ward1" data-nav="ward1">หอผู้ป่วยสูติกรรม 1</a>
+      <a href="#premium" data-nav="premium">หอผู้ป่วยสูติกรรมพิเศษ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="top">
+  <div class="hero-in">
+    <div class="hero-text">
+      <h1 class="en">Virtual Tour</h1>
+      <h2>Ramathibodi Birth Journey</h2>
+      <p>สัมผัสบรรยากาศสถานที่จริง พร้อมสิ่งอำนวยความสะดวกที่ออกแบบมาเพื่อคุณแม่และลูกน้อย — เดินชมทุกจุดตั้งแต่ฝากครรภ์ ห้องคลอด จนถึงหอผู้ป่วยหลังคลอด ได้จากที่บ้าน</p>
+      <div class="hero-points">
+        <div class="pt"><span class="ic"><svg class="icn" viewBox="0 0 24 24"><path d="M12 3l7 2.6v5.2c0 4.6-3 7.6-7 9.2-4-1.6-7-4.6-7-9.2V5.6z"/><path d="M9 12l2 2 4-4.2"/></svg></span><span><b>ปลอดภัย</b><span>ได้มาตรฐานสากล</span></span></div>
+        <div class="pt"><span class="ic"><svg class="icn" viewBox="0 0 24 24"><path d="M12 20s-7.2-4.5-9.1-8.6C1.5 8.2 3.5 5.2 6.7 5.2c2 0 3.5 1.1 4.3 2.5.8-1.4 2.3-2.5 4.3-2.5 3.2 0 5.2 3 3.8 6.2C19.2 15.5 12 20 12 20z"/></svg></span><span><b>อบอุ่น</b><span>เหมือนอยู่บ้าน</span></span></div>
+        <div class="pt"><span class="ic"><svg class="icn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 8.5v7M8.5 12h7"/></svg></span><span><b>ดูแลด้วยทีมแพทย์</b><span>เฉพาะทาง</span></span></div>
+      </div>
+    </div>
+    <div class="hero-img"><img src="assets/img/banner.jpg" alt="คุณแม่และลูกน้อยแรกเกิด"></div>
+  </div>
+</section>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<div class="wrap" id="tour">
+
+  <aside class="side">
+    <div class="side-card">
+      <h3>เลือกชมสถานที่</h3>
+      <ul class="place-list" id="placeList">
+        <li><a href="#opd" data-target="opd"><span class="place-ic"><svg class="icn" viewBox="0 0 24 24"><rect x="5.5" y="4.5" width="13" height="16" rx="2"/><path d="M9 4.5h6M9 10h6M9 13.5h6M9 17h3.5"/></svg></span><span><b>หน่วยตรวจผู้ป่วยนอกสูติกรรมฯ</b><span>Obstetric &amp; Family Planning OPD</span></span><span class="arrow">›</span></a></li>
+        <li><a href="#labor" data-target="labor"><span class="place-ic"><svg class="icn" viewBox="0 0 24 24"><path d="M3 18.5v-11"/><path d="M3 14.5h18v4"/><path d="M21 14.5v-2a3 3 0 0 0-3-3h-8v5"/><circle cx="6.5" cy="11" r="1.6"/></svg></span><span><b>ห้องคลอด</b><span>Labor Room</span></span><span class="arrow">›</span></a></li>
+        <li><a href="#ward1" data-target="ward1"><span class="place-ic"><svg class="icn" viewBox="0 0 24 24"><path d="M12 20s-7.2-4.5-9.1-8.6C1.5 8.2 3.5 5.2 6.7 5.2c2 0 3.5 1.1 4.3 2.5.8-1.4 2.3-2.5 4.3-2.5 3.2 0 5.2 3 3.8 6.2C19.2 15.5 12 20 12 20z"/></svg></span><span><b>หอผู้ป่วยสูติกรรม 1</b><span>Obstetrics Ward 1</span></span><span class="arrow">›</span></a></li>
+        <li><a href="#premium" data-target="premium"><span class="place-ic"><svg class="icn" viewBox="0 0 24 24"><path d="M12 4l2.35 4.9 5.35.7-3.93 3.73.99 5.32L12 16.1l-4.76 2.55.99-5.32L4.3 9.6l5.35-.7z"/></svg></span><span><b>หอผู้ป่วยสูติกรรมพิเศษ</b><span>Premium Obstetrics Ward</span></span><span class="arrow">›</span></a></li>
+      </ul>
+    </div>
+
+    <div class="music-card">
+      <button id="musicBtn" class="on" aria-label="เปิด/ปิดเพลงประกอบ">♪</button>
+      <small><b>เพลงประกอบขณะชมวิดีโอ</b><br>กดเพื่อเปิด–ปิดเสียงเพลง</small>
+    </div>
+
+    <div class="ask-card" id="contact">
+      <h4>มีคำถามเพิ่มเติม?</h4>
+      <p>ทีมงานยินดีให้คำแนะนำ</p>
+      <a class="ask-tel" href="tel:022011135">โทร 0-2201-1135</a>
+      <div class="ask-hours">หน่วยตรวจผู้ป่วยนอกสูติกรรมฯ<br>จันทร์–ศุกร์ 07.00–12.00 น. และ 13.00–15.00 น.</div>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <!-- ─────── 1) OPD ─────── -->
+    <section class="place" id="opd">
+      <div class="place-head">
+        <span class="big-ic"><svg class="icn icn-lg" viewBox="0 0 24 24"><rect x="5.5" y="4.5" width="13" height="16" rx="2"/><path d="M9 4.5h6M9 10h6M9 13.5h6M9 17h3.5"/></svg></span>
+        <h2>หน่วยตรวจผู้ป่วยนอกสูติกรรมและวางแผนครอบครัว<small>Obstetric and Family Planning Outpatient Unit</small></h2>
+      </div>
+      <p class="place-desc">จุดเริ่มต้นของทุกการเดินทาง — ให้บริการฝากครรภ์ วางแผนครอบครัว และดูแลสตรีตั้งครรภ์ที่มีภาวะแทรกซ้อน โดยทีมสูติแพทย์และพยาบาลเฉพาะทาง พร้อมจุดชั่งน้ำหนัก วัดความดัน ห้องตรวจ ห้องอัลตราซาวด์ และห้องให้คำแนะนำสุขภาพครรภ์</p>
+
+      <div class="opd-grid">
+        <div class="feature-img"><img src="assets/img/opd-01.jpg" alt="ป้ายหน่วยตรวจผู้ป่วยนอกสูติกรรมและวางแผนครอบครัว" data-gal="opd" data-i="0"></div>
+        <div class="gal">
+          <h5>Gallery <button data-open="opd">ดูทั้งหมด →</button></h5>
+          <div class="gal-grid">
+            <img src="assets/img/opd-09.jpg" alt="จุดชั่งน้ำหนักและวัดความดันโลหิต" data-gal="opd" data-i="8">
+            <img src="assets/img/opd-03.jpg" alt="เคาน์เตอร์ฝากครรภ์" data-gal="opd" data-i="2">
+            <img src="assets/img/opd-08.jpg" alt="ห้องตรวจอัลตราซาวด์" data-gal="opd" data-i="7">
+            <img src="assets/img/opd-02.jpg" alt="ห้องตรวจโดยทีมแพทย์" data-gal="opd" data-i="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="sched">
+        <h5>ตารางให้บริการคลินิก</h5>
+        <table>
+          <tr><th>การให้บริการ</th><th>7.00–12.00 น.</th><th>13.00–15.00 น.</th></tr>
+          <tr><td>วันจันทร์</td><td>คลินิกตรวจครรภ์ที่มีภาวะแทรกซ้อน</td><td>คลินิกตรวจครรภ์</td></tr>
+          <tr><td>วันอังคาร</td><td>คลินิกหลังคลอด–วางแผนครอบครัว</td><td>คลินิกนรีเวชทางเดินปัสสาวะและอวัยวะสืบพันธุ์</td></tr>
+          <tr><td>วันพุธ</td><td>คลินิกตรวจครรภ์</td><td>คลินิกวัยหมดประจำเดือน</td></tr>
+          <tr><td>วันพฤหัสบดี</td><td>คลินิกหลังคลอด–วางแผนครอบครัว · คลินิกเตรียมความพร้อมก่อนสมรส</td><td>–</td></tr>
+          <tr><td>วันศุกร์</td><td>คลินิกตรวจครรภ์</td><td>–</td></tr>
+        </table>
+      </div>
+
+      <div class="contact-line">
+        <span><b>สถานที่:</b> ชั้น 2 อาคารหลัก (อาคาร 1)</span>
+        <span><b>โทร:</b> <a href="tel:022011135">0-2201-1135</a></span>
+        <span><b>เวลาทำการ:</b> จันทร์–ศุกร์ 07.00–12.00 และ 13.00–15.00 น.</span>
+      </div>
+    </section>
+
+    <!-- ─────── 2) Labor Room ─────── -->
+    <section class="place" id="labor">
+      <div class="place-head">
+        <span class="big-ic"><svg class="icn icn-lg" viewBox="0 0 24 24"><path d="M3 18.5v-11"/><path d="M3 14.5h18v4"/><path d="M21 14.5v-2a3 3 0 0 0-3-3h-8v5"/><circle cx="6.5" cy="11" r="1.6"/></svg></span>
+        <h2>ห้องคลอด<small>Labor Room</small></h2>
+      </div>
+      <p class="place-desc">ห้องคลอดพร้อมเตียงคลอดปรับระดับด้วยระบบไฟฟ้า เครื่องติดตามเสียงหัวใจทารกและการหดรัดตัวของมดลูก มุมดูแลทารกแรกเกิดพร้อมเครื่องให้ความอบอุ่น โดยทีมสูติแพทย์ พยาบาลห้องคลอด และทีมกุมารแพทย์ทารกแรกเกิดดูแลตลอด 24 ชั่วโมง</p>
+
+      <div class="media-grid">
+        <div>
+          <div class="video-box"><video src="assets/videos/labor-room.mp4" poster="assets/img/poster-labor.jpg" controls muted playsinline preload="metadata"></video></div>
+          <div class="route-chip"><span class="dot">▶</span><span>เส้นทางในวิดีโอ: เดินไปห้องคลอด ชั้น 4 → ป้ายห้องคลอด → เดินเข้าห้องคลอด → บรรยากาศภายใน → ห้อง Nursery</span></div>
+        </div>
+        <div class="gal">
+          <h5>Gallery <button data-open="lr">ดูทั้งหมด →</button></h5>
+          <div class="gal-grid">
+            <img src="assets/img/lr-05.jpg" alt="ห้องคลอด เตียงคลอดปรับระดับ" data-gal="lr" data-i="4">
+            <img src="assets/img/lr-04.jpg" alt="เตียงสังเกตอาการพร้อมเครื่องมอนิเตอร์" data-gal="lr" data-i="3">
+            <img src="assets/img/lr-02.jpg" alt="แพทย์ฟังเสียงหัวใจทารกในครรภ์" data-gal="lr" data-i="1">
+            <img src="assets/img/lr-06.jpg" alt="คุณแม่และลูกน้อยแรกคลอด" data-gal="lr" data-i="5">
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-line">
+        <span><b>สถานที่:</b> ชั้น 4 อาคารหลัก (อาคาร 1)</span>
+        <span><b>โทร:</b> <a href="tel:022011417">0-2201-1417</a> (ตลอด 24 ชั่วโมง)</span>
+      </div>
+    </section>
+
+    <!-- ─────── 3) Ward 1 ─────── -->
+    <section class="place" id="ward1">
+      <div class="place-head">
+        <span class="big-ic"><svg class="icn icn-lg" viewBox="0 0 24 24"><path d="M12 20s-7.2-4.5-9.1-8.6C1.5 8.2 3.5 5.2 6.7 5.2c2 0 3.5 1.1 4.3 2.5.8-1.4 2.3-2.5 4.3-2.5 3.2 0 5.2 3 3.8 6.2C19.2 15.5 12 20 12 20z"/></svg></span>
+        <h2>หอผู้ป่วยสูติกรรม 1<small>Obstetrics Ward 1</small></h2>
+      </div>
+      <p class="place-desc">หอผู้ป่วยสำหรับคุณแม่หลังคลอด ดูแลแบบแม่ลูกอยู่ด้วยกัน (rooming-in) เพื่อส่งเสริมสายใยครอบครัวและการเลี้ยงลูกด้วยนมแม่ พร้อมห้อง Nursery สำหรับดูแลทารกแรกเกิด โดยพยาบาลจะสอนการดูแลลูกน้อยทุกขั้นตอนจนคุณมั่นใจก่อนกลับบ้าน</p>
+
+      <div class="media-grid">
+        <div>
+          <div class="video-box"><video src="assets/videos/ward1.mp4" poster="assets/img/poster-ward1.jpg" controls muted playsinline preload="metadata"></video></div>
+          <div class="route-chip"><span class="dot">▶</span><span>เส้นทางในวิดีโอ: ทางเข้าหอผู้ป่วย → เดินเข้าวอร์ด → บรรยากาศภายในวอร์ด → ห้อง Nursery</span></div>
+        </div>
+        <div class="gal">
+          <h5>Gallery <button data-open="w1">ดูทั้งหมด →</button></h5>
+          <div class="gal-grid">
+            <img src="assets/img/w1-01.jpg" alt="ทางเข้าหอผู้ป่วยสูติกรรม 1" data-gal="w1" data-i="0">
+            <img src="assets/img/w1-02.jpg" alt="ทางเดินภายในวอร์ด" data-gal="w1" data-i="1">
+            <img src="assets/img/w1-03.jpg" alt="บรรยากาศภายในหอผู้ป่วย" data-gal="w1" data-i="2">
+            <img src="assets/img/w1-04.jpg" alt="ห้อง Nursery" data-gal="w1" data-i="3">
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-line">
+        <span><b>สถานที่:</b> ชั้น 6 อาคารหลัก (อาคาร 1)</span>
+        <span><b>โทร:</b> <a href="tel:022011616">0-2201-1616</a>, <a href="tel:022011626">0-2201-1626</a></span>
+      </div>
+    </section>
+
+    <!-- ─────── 4) Premium Ward ─────── -->
+    <section class="place" id="premium">
+      <div class="place-head">
+        <span class="big-ic"><svg class="icn icn-lg" viewBox="0 0 24 24"><path d="M12 4l2.35 4.9 5.35.7-3.93 3.73.99 5.32L12 16.1l-4.76 2.55.99-5.32L4.3 9.6l5.35-.7z"/></svg></span>
+        <h2>หอผู้ป่วยสูติกรรมพิเศษ<small>Premium Obstetrics Ward</small></h2>
+      </div>
+      <p class="place-desc">ห้องพักเดี่ยวส่วนตัวสำหรับคุณแม่และครอบครัว บรรยากาศอบอุ่นเป็นส่วนตัว พร้อมสิ่งอำนวยความสะดวกครบครัน ให้ช่วงเวลาแรกของครอบครัวใหม่เป็นความทรงจำที่สบายใจที่สุด</p>
+
+      <div class="media-grid">
+        <div>
+          <div class="video-box"><video src="assets/videos/premium-ward.mp4" poster="assets/img/poster-premium.jpg" controls muted playsinline preload="metadata"></video></div>
+          <div class="route-chip"><span class="dot">▶</span><span>เส้นทางในวิดีโอ: เดินทางไปหอผู้ป่วยพิเศษ → เดินเข้าหอผู้ป่วย → ชมภายในห้องพัก</span></div>
+        </div>
+        <div class="gal">
+          <h5>Gallery <button data-open="pw">ดูทั้งหมด →</button></h5>
+          <div class="gal-grid">
+            <img src="assets/img/pw-01.jpg" alt="ทางเดินไปหอผู้ป่วยสูติกรรมพิเศษ" data-gal="pw" data-i="0">
+            <img src="assets/img/pw-02.jpg" alt="ทางเข้าหอผู้ป่วยพิเศษ" data-gal="pw" data-i="1">
+            <img src="assets/img/pw-03.jpg" alt="ภายในห้องพักพิเศษ" data-gal="pw" data-i="2">
+            <img src="assets/img/pw-04.jpg" alt="มุมพักผ่อนภายในห้องพัก" data-gal="pw" data-i="3">
+          </div>
+        </div>
+      </div>
+
+      <div class="amen">
+        <h5>Amenities</h5>
+        <p>สิ่งอำนวยความสะดวกในห้องพัก</p>
+        <ol>
+          <li>เตียงปรับระดับด้วยระบบไฟฟ้า (Electrical Control Bed)</li>
+          <li>ตู้เย็น</li>
+          <li>โทรทัศน์</li>
+          <li>เครื่องปรับอากาศ</li>
+          <li>โซฟา</li>
+          <li>โต๊ะอาหาร</li>
+          <li>ชุดจานชาม ช้อนส้อม แก้วน้ำดื่ม</li>
+          <li>เครื่องทำน้ำอุ่น</li>
+          <li>ตู้เก็บของ</li>
+          <li>น้ำดื่มฟรี 2 ขวด/วัน</li>
+        </ol>
+      </div>
+
+      <div class="contact-line">
+        <span><b>สถานที่:</b> ชั้น 4 อาคารหลัก (อาคาร 1)</span>
+        <span><b>โทร:</b> <a href="tel:022011413">0-2201-1413</a>, <a href="tel:022011423">0-2201-1423</a></span>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ═══════════ VALUES ═══════════ -->
+<section class="values">
+  <div class="values-in">
+    <div class="values-lead"><span class="ic"><svg class="icn icn-lg" viewBox="0 0 24 24"><path d="M12 20s-7.2-4.5-9.1-8.6C1.5 8.2 3.5 5.2 6.7 5.2c2 0 3.5 1.1 4.3 2.5.8-1.4 2.3-2.5 4.3-2.5 3.2 0 5.2 3 3.8 6.2C19.2 15.5 12 20 12 20z"/></svg></span><span><b>เราใส่ใจในทุกช่วงเวลาสำคัญ</b><span>เพื่อให้คุณแม่และลูกน้อยได้รับประสบการณ์ที่ดีที่สุด</span></span></div>
+    <div class="val"><div class="ic"><svg class="icn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 8.5v7M8.5 12h7"/></svg></div><b>ทีมแพทย์เฉพาะทาง</b><span>ดูแลใกล้ชิดทุกขั้นตอน</span></div>
+    <div class="val"><div class="ic"><svg class="icn" viewBox="0 0 24 24"><polyline points="3 12 7.5 12 10 6.5 14 17.5 16.5 12 21 12"/></svg></div><b>เทคโนโลยีทันสมัย</b><span>ปลอดภัยได้มาตรฐาน</span></div>
+    <div class="val"><div class="ic"><svg class="icn" viewBox="0 0 24 24"><path d="M12 20s-7.2-4.5-9.1-8.6C1.5 8.2 3.5 5.2 6.7 5.2c2 0 3.5 1.1 4.3 2.5.8-1.4 2.3-2.5 4.3-2.5 3.2 0 5.2 3 3.8 6.2C19.2 15.5 12 20 12 20z"/></svg></div><b>บริการด้วยหัวใจ</b><span>อบอุ่น เป็นกันเอง</span></div>
+    <div class="val"><div class="ic"><svg class="icn" viewBox="0 0 24 24"><path d="M5.5 11V9a2.5 2.5 0 0 1 2.5-2.5h8A2.5 2.5 0 0 1 18.5 9v2"/><path d="M3.5 13.2a2 2 0 0 1 4 0v.8h9v-.8a2 2 0 0 1 4 0v4.8h-17z"/></svg></div><b>สะดวกสบาย</b><span>ครบครันทุกความต้องการ</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-brand">
+      <img src="assets/img/logo.png" alt="ตราคณะแพทยศาสตร์โรงพยาบาลรามาธิบดี">
+      <div><b>คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี<br>มหาวิทยาลัยมหิดล</b>
+      270 ถนนพระรามที่ 6 แขวงทุ่งพญาไท<br>เขตราชเทวี กรุงเทพมหานคร 10400</div>
+    </div>
+    <div>
+      <h6>ลิงก์ที่เกี่ยวข้อง</h6>
+      <ul>
+        <li><a href="https://www.rama.mahidol.ac.th/obgyn/th" target="_blank" rel="noopener">เว็บไซต์ภาควิชาสูติศาสตร์–นรีเวชวิทยา</a></li>
+        <li><a href="https://www.rama.mahidol.ac.th/obgyn/th/clinic" target="_blank" rel="noopener">ตารางคลินิกผู้ป่วยนอก</a></li>
+        <li><a href="https://www.rama.mahidol.ac.th" target="_blank" rel="noopener">เว็บไซต์คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี</a></li>
+      </ul>
+    </div>
+    <div>
+      <h6>ติดต่อหน่วยงาน</h6>
+      <ul>
+        <li>หน่วยตรวจผู้ป่วยนอกสูติกรรมฯ — 0-2201-1135</li>
+        <li>ห้องคลอด — 0-2201-1417</li>
+        <li>หอผู้ป่วยสูติกรรม 1 — 0-2201-1616, 0-2201-1626</li>
+        <li>หอผู้ป่วยสูติกรรมพิเศษ — 0-2201-1413, 0-2201-1423</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-note">
+    <div>
+      <span>© คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล — เว็บไซต์นี้จัดทำเพื่อการเยี่ยมชมเสมือนจริงและให้ข้อมูลทั่วไป</span>
+      <span>โปรดสอบถามระเบียบและข้อมูลล่าสุดจากหน่วยงานโดยตรง</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ LIGHTBOX ═══════════ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lb-x" id="lbClose" aria-label="ปิด">✕</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-cap" id="lbCap"></div>
+  <div class="lb-nav">
+    <button id="lbPrev">← ก่อนหน้า</button>
+    <button id="lbNext">ถัดไป →</button>
+  </div>
+</div>
+
+<audio id="bgMusic" src="assets/music/homebound.mp3" loop preload="none"></audio>
+
+<script>
+/* ---------- mobile menu ---------- */
+const menuBtn=document.getElementById('menuBtn'),mainNav=document.getElementById('mainNav');
+menuBtn.addEventListener('click',()=>mainNav.classList.toggle('open'));
+mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mainNav.classList.remove('open')));
+
+/* ---------- sidebar active on scroll ---------- */
+const links=[...document.querySelectorAll('#placeList a')];
+const navLinks=[...document.querySelectorAll('nav.main a[data-nav]')];
+const homeLink=document.querySelector('nav.main a[href="#top"]');
+window.addEventListener('scroll',()=>{if(window.scrollY<220){navLinks.forEach(n=>n.classList.remove('active'));homeLink.classList.add('active');}},{passive:true});
+const sections=links.map(a=>document.getElementById(a.dataset.target));
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const i=sections.indexOf(e.target);
+      links.forEach((l,j)=>l.classList.toggle('active',j===i));
+      const id=e.target.id;
+      navLinks.forEach(n=>n.classList.toggle('active',n.dataset.nav===id));
+      homeLink.classList.toggle('active',false);
+    }
+  });
+},{rootMargin:'-30% 0px -55% 0px'});
+sections.forEach(s=>obs.observe(s));
+
+/* ---------- galleries + lightbox ---------- */
+const GAL={
+  opd:{cap:"หน่วยตรวจผู้ป่วยนอกสูติกรรมและวางแผนครอบครัว",items:[
+    ["assets/img/opd-01.jpg","ป้ายหน่วยตรวจผู้ป่วยนอกสูติกรรมและวางแผนครอบครัว"],
+    ["assets/img/opd-02.jpg","ห้องตรวจโดยทีมสูติแพทย์"],
+    ["assets/img/opd-03.jpg","เคาน์เตอร์ฝากครรภ์"],
+    ["assets/img/opd-04.jpg","พยาบาลให้คำแนะนำผู้รับบริการ"],
+    ["assets/img/opd-05.jpg","พื้นที่นั่งรอหน้าห้องตรวจสูติกรรม"],
+    ["assets/img/opd-06.jpg","เคาน์เตอร์พยาบาล จุดฝากครรภ์"],
+    ["assets/img/opd-07.jpg","ห้องให้คำแนะนำและสอนสุขศึกษา"],
+    ["assets/img/opd-08.jpg","ห้องตรวจอัลตราซาวด์"],
+    ["assets/img/opd-09.jpg","จุดชั่งน้ำหนักและวัดความดันโลหิตก่อนยื่นบัตรนัด"],
+  ]},
+  lr:{cap:"ห้องคลอด",items:[
+    ["assets/img/lr-01.jpg","ซักประวัติและประเมินแรกรับ"],
+    ["assets/img/lr-02.jpg","แพทย์ฟังเสียงหัวใจทารกในครรภ์"],
+    ["assets/img/lr-03.jpg","การดูแลทารกแรกเกิดที่เครื่องให้ความอบอุ่น"],
+    ["assets/img/lr-04.jpg","เตียงสังเกตอาการพร้อมเครื่องติดตามเสียงหัวใจทารก"],
+    ["assets/img/lr-05.jpg","ห้องคลอด เตียงคลอดปรับระดับด้วยระบบไฟฟ้า"],
+    ["assets/img/lr-06.jpg","ความประทับใจ — คุณแม่และลูกน้อยแรกคลอด"],
+  ]},
+  w1:{cap:"หอผู้ป่วยสูติกรรม 1",items:[
+    ["assets/img/w1-01.jpg","ทางเข้าหอผู้ป่วยสูติกรรม 1"],
+    ["assets/img/w1-02.jpg","ทางเดินภายในวอร์ด"],
+    ["assets/img/w1-03.jpg","บรรยากาศภายในหอผู้ป่วย"],
+    ["assets/img/w1-04.jpg","ห้อง Nursery"],
+  ]},
+  pw:{cap:"หอผู้ป่วยสูติกรรมพิเศษ",items:[
+    ["assets/img/pw-01.jpg","ทางเดินไปหอผู้ป่วยสูติกรรมพิเศษ"],
+    ["assets/img/pw-02.jpg","ทางเข้าหอผู้ป่วยพิเศษ"],
+    ["assets/img/pw-03.jpg","ภายในห้องพักพิเศษ"],
+    ["assets/img/pw-04.jpg","มุมพักผ่อนภายในห้องพัก"],
+  ]},
+};
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
+let cur={gal:'opd',i:0};
+function openLB(gal,i){
+  cur={gal,i};
+  const g=GAL[gal],it=g.items[i];
+  lbImg.src=it[0];lbImg.alt=it[1];
+  lbCap.textContent=`${g.cap} — ${it[1]} (${i+1}/${g.items.length})`;
+  lb.classList.add('open');document.body.style.overflow='hidden';
+}
+function closeLB(){lb.classList.remove('open');document.body.style.overflow='';}
+function step(d){const g=GAL[cur.gal];openLB(cur.gal,(cur.i+d+g.items.length)%g.items.length);}
+document.querySelectorAll('img[data-gal]').forEach(im=>im.addEventListener('click',()=>openLB(im.dataset.gal,+im.dataset.i)));
+document.querySelectorAll('button[data-open]').forEach(b=>b.addEventListener('click',()=>openLB(b.dataset.open,0)));
+document.getElementById('lbClose').addEventListener('click',closeLB);
+document.getElementById('lbPrev').addEventListener('click',()=>step(-1));
+document.getElementById('lbNext').addEventListener('click',()=>step(1));
+lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
+document.addEventListener('keydown',e=>{
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')closeLB();
+  if(e.key==='ArrowLeft')step(-1);
+  if(e.key==='ArrowRight')step(1);
+});
+
+/* ---------- soothing music while videos play ---------- */
+const music=document.getElementById('bgMusic');
+const musicBtn=document.getElementById('musicBtn');
+music.volume=0.35;
+let musicOn=true;
+musicBtn.addEventListener('click',()=>{
+  musicOn=!musicOn;
+  musicBtn.classList.toggle('on',musicOn);
+  musicBtn.textContent=musicOn?'♪':'𝄽';
+  if(!musicOn)music.pause();
+  else if(anyPlaying())music.play().catch(()=>{});
+});
+const vids=[...document.querySelectorAll('video')];
+function anyPlaying(){return vids.some(v=>!v.paused&&!v.ended);}
+vids.forEach(v=>{
+  v.addEventListener('play',()=>{
+    vids.forEach(o=>{if(o!==v)o.pause();});   /* เล่นทีละคลิป */
+    if(musicOn)music.play().catch(()=>{});
+  });
+  v.addEventListener('pause',()=>{if(!anyPlaying())music.pause();});
+  v.addEventListener('ended',()=>{if(!anyPlaying())music.pause();});
+});
+</script>
+</body>
+</html>
