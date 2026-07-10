@@ -200,9 +200,34 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:40px}
   .cards{grid-template-columns:1fr}
   .doc .contact-grid{grid-template-columns:1fr}
 }
+
+/* ---------- password gate ---------- */
+#gate{position:fixed;inset:0;z-index:1000;background:radial-gradient(120% 130% at 50% 0%,#e9f4fb 0%,#eef0fb 45%,#f3eefc 100%);display:grid;place-items:center;padding:24px}
+.gate-card{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 60px rgba(30,45,90,.14);padding:36px 30px;max-width:380px;width:100%;text-align:center}
+.gate-card img{width:78px;height:78px;border-radius:16px;margin:0 auto 16px;display:block}
+.gate-card h1{font-family:'Poppins',sans-serif;font-size:1.28rem;color:var(--navy);margin:0 0 5px;line-height:1.2}
+.gate-card p{color:var(--muted);font-size:.86rem;margin:0 0 22px}
+.gate-field{display:flex;gap:8px}
+.gate-field input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-family:inherit;font-size:1rem;outline:none;color:var(--ink)}
+.gate-field input:focus{border-color:var(--teal)}
+.gate-field button{border:none;background:var(--teal);color:#fff;font-weight:600;border-radius:12px;padding:0 18px;font-family:inherit;font-size:.95rem;cursor:pointer}
+.gate-field button:hover{background:var(--teal-deep)}
+.gate-err{color:#d64545;font-size:.82rem;margin-top:12px;min-height:1.1em}
 </style>
 </head>
 <body>
+<div id="gate">
+  <div class="gate-card">
+    <img id="gateLogo" alt="Ramathibodi Neonatal Library logo" />
+    <h1>Ramathibodi Neonatal Library</h1>
+    <p>Restricted access &middot; please enter the password</p>
+    <div class="gate-field">
+      <input id="gatePw" type="password" placeholder="Password" autocomplete="off" aria-label="Password" />
+      <button onclick="checkGate()">Enter</button>
+    </div>
+    <div id="gateErr" class="gate-err" role="alert"></div>
+  </div>
+</div>
 <header>
   <div class="wrap nav">
     <div class="brand" onclick="go('home')">
@@ -725,6 +750,30 @@ function onSearch(qv){
   });
   box.innerHTML=html;
 }
+
+/* ---------- password gate ---------- */
+const GATE_PW="Rama2026";
+function checkGate(){
+  const el=document.getElementById('gatePw');
+  if(el.value===GATE_PW){
+    document.getElementById('gate').style.display='none';
+    document.body.style.overflow='';
+    try{sessionStorage.setItem('rnl_ok','1');}catch(e){}
+  } else {
+    document.getElementById('gateErr').textContent='Incorrect password. Please try again.';
+    el.value=''; el.focus();
+  }
+}
+(function initGate(){
+  let ok=false; try{ok=sessionStorage.getItem('rnl_ok')==='1';}catch(e){}
+  const g=document.getElementById('gate');
+  if(ok){ g.style.display='none'; return; }
+  document.body.style.overflow='hidden';
+  const l=document.querySelector('.brandlogo'), gl=document.getElementById('gateLogo');
+  if(l&&gl) gl.src=l.src;
+  const pw=document.getElementById('gatePw');
+  if(pw){ pw.addEventListener('keydown',e=>{if(e.key==='Enter')checkGate();}); setTimeout(()=>pw.focus(),60); }
+})();
 
 renderHome();
 </script>
